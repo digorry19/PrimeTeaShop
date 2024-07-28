@@ -51,6 +51,6 @@ Route::middleware(['auth'])->group(function () {
         ->name('client.products.filterByCategory');
     Route::get('/client/products/{product}', [ClientProductController::class, 'show'])->name('client.products.show');
 });
-Route::prefix('client')->name('client.')->group(function () {
-    Route::resource('products', ClientProductController::class);
-});
+// Route::prefix('client')->name('client.')->group(function () {
+//     Route::resource('products', ClientProductController::class);
+// });

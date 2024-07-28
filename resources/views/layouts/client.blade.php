@@ -10,6 +10,5 @@
     @include('client.partials.sidebar')
     @yield('content')
     @livewireScripts
-    
 </body>
 </html>
