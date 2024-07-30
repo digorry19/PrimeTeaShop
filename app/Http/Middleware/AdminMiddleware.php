@@ -15,9 +15,10 @@ class AdminMiddleware
 {
     public function handle($request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->is_admin) {
+        if (Auth::check() && Auth::user()->role== 'admin') {
             return $next($request);
         }
-        return view('/admin/dashboard');
+
+        return redirect('/client/dashboard');
     }
 }

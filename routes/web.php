@@ -6,7 +6,6 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\AdminProductController;
 use App\Http\Controllers\AdminCategoryController;
 use App\Http\Controllers\ClientProductController;
-use App\Models\Category;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,11 +37,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
 });
 
 // Route cho client
-Route::middleware(['auth'])->group(function () {    
-    Route::get('/client/dashboard', [ClientController::class, 'index'])->name('client.dashboard');
-    Route::resource('client/products', ClientProductController::class);
-});
-
 // Route lọc sản phẩm theo danh mục
 Route::middleware(['auth'])->group(function () {
     Route::get('/client/dashboard', [ClientController::class, 'index'])->name('client.dashboard');
