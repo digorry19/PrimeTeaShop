@@ -7,7 +7,15 @@ use Livewire\Volt\Component;
 new class extends Component
 {
     public string $password = '';
+    public bool $isAdmin = false;
 
+    /**
+     * Mount the component.
+     */
+    public function mount(): void
+    {
+        $this->isAdmin = $this->isAdmin();
+    }
     /**
      * Delete the currently authenticated user.
      */
@@ -21,6 +29,10 @@ new class extends Component
 
         $this->redirect('/', navigate: true);
     }
+    public function isAdmin(): bool
+    {
+        return Auth::user()->role === 'admin'; // Điều chỉnh tùy thuộc vào cách bạn xác định vai trò admin
+    }
 }; ?>
 
 <section class="space-y-6">
@@ -32,16 +44,24 @@ new class extends Component
         <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
             {{ __('Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.') }}
         </p>
+        @if ($isAdmin)
+        <p class="mt-1 text-sm text-red-600 dark:text-red-400">
+            {{ __('Because this is an admin account, you cannot delete this account.') }}
+        </p>
+            
+        @endif
+        
     </header>
-
-    <x-danger-button
-        x-data=""
-        x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion')"
-    >{{ __('Delete Account') }}</x-danger-button>
+    @unless($isAdmin)
+        <x-danger-button
+            x-data=""
+            x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion')"
+        >{{ __('Delete Account') }}</x-danger-button>
+    @endunless
 
     <x-modal name="confirm-user-deletion" :show="$errors->isNotEmpty()" focusable>
         <form wire:submit="deleteUser" class="p-6">
-
+         
             <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
                 {{ __('Are you sure you want to delete your account?') }}
             </h2>

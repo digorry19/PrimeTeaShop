@@ -6,6 +6,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\AdminProductController;
 use App\Http\Controllers\AdminCategoryController;
 use App\Http\Controllers\ClientProductController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::resource('categories', AdminCategoryController::class);
     Route::resource('products', AdminProductController::class);
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::patch('/users/{user}/activate', [UserController::class, 'activate'])->name('users.activate');
+    Route::patch('/users/{user}/deactivate', [UserController::class, 'deactivate'])->name('users.deactivate');
 });
 
 // Route cho client
@@ -45,6 +49,4 @@ Route::middleware(['auth'])->group(function () {
         ->name('client.products.filterByCategory');
     Route::get('/client/products/{product}', [ClientProductController::class, 'show'])->name('client.products.show');
 });
-// Route::prefix('client')->name('client.')->group(function () {
-//     Route::resource('products', ClientProductController::class);
-// });
+

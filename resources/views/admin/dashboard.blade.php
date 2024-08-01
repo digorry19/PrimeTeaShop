@@ -8,4 +8,5 @@
 @endsection
 @section('content')
     <h1>Admin Dashboard</h1>
+    @include('admin.partials.sidebar')
 @endsection

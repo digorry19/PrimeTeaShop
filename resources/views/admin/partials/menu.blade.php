@@ -8,4 +8,7 @@
     <a href="{{ route('products.index') }}" class="list-group-item list-group-item-action">
         Danh sách sản phẩm <span class="badge badge-primary badge-pill"></span>
     </a>
+    <a href="{{ route('users.index') }}" class="list-group-item list-group-item-action">
+        Danh sách tài khoản <span class="badge badge-primary badge-pill"></span>
+    </a>
 </div>

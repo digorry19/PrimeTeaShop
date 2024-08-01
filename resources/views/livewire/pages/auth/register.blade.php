@@ -8,13 +8,17 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
+use Livewire\WithFileUploads;
 
 new #[Layout('layouts.guest')] class extends Component
 {
+    use WithFileUploads;
+
     public string $name = '';
     public string $email = '';
     public string $password = '';
     public string $password_confirmation = '';
+    public $avatar;
 
     /**
      * Handle an incoming registration request.
@@ -25,7 +29,12 @@ new #[Layout('layouts.guest')] class extends Component
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
+            'avatar' => ['nullable', 'image', 'max:1024'], // 1MB Max
         ]);
+
+        if ($this->avatar) {
+            $validated['avatar'] = $this->avatar->store('avatars', 'public');
+        }
 
         $validated['password'] = Hash::make($validated['password']);
 
@@ -56,24 +65,31 @@ new #[Layout('layouts.guest')] class extends Component
         <!-- Password -->
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" />
-
             <x-text-input wire:model="password" id="password" class="block mt-1 w-full"
                             type="password"
                             name="password"
                             required autocomplete="new-password" />
-
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
         <!-- Confirm Password -->
         <div class="mt-4">
             <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
             <x-text-input wire:model="password_confirmation" id="password_confirmation" class="block mt-1 w-full"
                             type="password"
                             name="password_confirmation" required autocomplete="new-password" />
-
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+        </div>
+
+        <!-- Avatar -->
+        <div class="mt-4">
+            <x-input-label for="avatar" :value="__('Avatar')" />
+            <input type="file" wire:model="avatar" id="avatar" class="block mt-1 w-full" />
+            <x-input-error :messages="$errors->get('avatar')" class="mt-2" />
+
+            @if ($avatar)
+                <img src="{{ $avatar->temporaryUrl() }}" alt="Avatar Preview" class="mt-2" style="max-width: 100px;">
+            @endif
         </div>
 
         <div class="flex items-center justify-end mt-4">
