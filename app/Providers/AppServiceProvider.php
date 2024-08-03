@@ -4,6 +4,9 @@ namespace App\Providers;
 
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
+use App\Models\User;
+use App\Models\Product;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,5 +24,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Paginator::useBootstrapFive();
+        View::composer('*', function ($view) {
+            $view->with('totalUsers', User::count());
+            $view->with('totalProducts', Product::count());
+        });
     }
 }

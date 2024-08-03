@@ -1,5 +1,3 @@
-<!-- resources/views/admin/categories/index.blade.php -->
-
 @extends('layouts.admin')
 
 @section('css')
@@ -26,6 +24,7 @@
                     <tr>
                         <th>Name</th>
                         <th>Description</th>
+                        <th>Product Count</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -34,6 +33,7 @@
                         <tr>
                             <td>{{ $category->name }}</td>
                             <td>{{ $category->description }}</td>
+                            <td>{{ $category->products_count }}</td>
                             <td>
                                 <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-sm btn-warning">Edit</a>
                                 <form action="{{ route('categories.destroy', $category->id) }}" method="POST" style="display:inline;">

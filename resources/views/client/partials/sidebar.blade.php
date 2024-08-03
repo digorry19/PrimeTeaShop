@@ -23,6 +23,7 @@ new class extends Component
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/d9fd73a9ea.js" crossorigin="anonymous"></script>
 </head>
 <style>
     .navbar {
@@ -95,18 +96,23 @@ new class extends Component
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-left: 20px">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{{ route('client.dashboard') }}">Home</a>
+                <a class="nav-link active" aria-current="page" href="{{ route('client.dashboard') }}"><i class="fa-solid fa-house"></i>Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{{ route('client.products.index') }}">Danh sách sản phẩm</a>
+                <a class="nav-link" href="{{ route('client.products.index') }}"><i class="fa-solid fa-list"></i>Danh sách sản phẩm</a>
               </li>
               {{-- <li class="nav-item">
                 <a class="nav-link disabled" aria-disabled="true">Disabled</a>
               </li> --}}
             </ul>
+            <i class="fa-solid fa-cart-shopping"></i>
+            <form class="d-flex" style="margin-left: 10px" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success"style="margin-right: 10px" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+              </form>
             <div class="profile">
                 <nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
                     <div class="hidden sm:flex sm:items-center sm:ms-6">

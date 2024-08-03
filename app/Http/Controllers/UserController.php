@@ -13,7 +13,8 @@ class UserController extends Controller
     public function index()
     {
         $users = User::where('role', 'user')->paginate(5);
-        return view('admin.users.index', compact('users'));
+        $totalUsers = User::where('role', 'user')->count(); // Tính tổng số lượng người dùng
+        return view('admin.users.index', compact('users', 'totalUsers'));
     }
     public function activate(User $user)
     {

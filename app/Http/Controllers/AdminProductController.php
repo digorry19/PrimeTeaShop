@@ -13,10 +13,18 @@ use Illuminate\Support\Facades\Storage;
 
 class AdminProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::with('category')->paginate(3);
-        return view('admin.products.index', compact('products'));
+        $categories = Category::all();
+        $selectedCategoryId = $request->input('category_id');
+
+        if ($selectedCategoryId) {
+            $products = Product::where('category_id', $selectedCategoryId)->paginate(3);
+        } else {
+            $products = Product::with('category')->paginate(3);
+        }
+
+        return view('admin.products.index', compact('products', 'categories', 'selectedCategoryId'));
     }
 
     public function create()

@@ -34,6 +34,7 @@ require __DIR__.'/auth.php';
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::resource('categories', AdminCategoryController::class);
+    Route::get('/categories/count', [AdminCategoryController::class, 'count'])->name('categories.count');
     Route::resource('products', AdminProductController::class);
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::patch('/users/{user}/activate', [UserController::class, 'activate'])->name('users.activate');

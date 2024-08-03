@@ -11,10 +11,10 @@ class AdminCategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::all();
-        return view('admin.categories.index', compact('categories'));
+        $categories = Category::withCount('products')->paginate(10);
+        $totalProducts = Category::withCount('products')->get()->sum('products_count'); // Tính tổng số lượng sản phẩm
+        return view('admin.categories.index', compact('categories', 'totalProducts'));
     }
-
     public function create()
     {
         return view('admin.categories.create');

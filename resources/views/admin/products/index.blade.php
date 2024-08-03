@@ -17,6 +17,22 @@
         </div>
         <div class="col-md-9">
             <h1>Product List</h1>
+
+            <!-- Dropdown to filter products by category -->
+            <form method="GET" action="{{ route('products.index') }}" class="mb-3">
+                <div class="form-group">
+                    <label for="category">Filter by Category:</label>
+                    <select id="category" name="category_id" class="form-control" onchange="this.form.submit()">
+                        <option value="">All Categories</option>
+                        @foreach($categories as $category)
+                            <option value="{{ $category->id }}" {{ $selectedCategoryId == $category->id ? 'selected' : '' }}>
+                                {{ $category->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+            </form>
+
             <a href="{{ route('products.create') }}" class="btn btn-primary mb-3">Add New Product</a>
 
             @if(session('success'))
@@ -45,7 +61,7 @@
                             <td>{{ $product->quantity }}</td>
                             <td>{{ $product->category->name }}</td>
                             <td class="d-flex gap-1">
-                                <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-warning ">Edit</a>
+                                <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-warning">Edit</a>
                                 <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
