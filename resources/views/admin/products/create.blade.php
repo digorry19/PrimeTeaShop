@@ -18,9 +18,21 @@
 
             <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                {{-- @if ($errors->any())
+                    <div class="alert alert-danger mt-3">
+                        <ul>
+                            @foreach ($errors->all() as $error )
+                                <li>{{$error}}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif --}}
                 <div class="form-group">
                     <label for="name">Name:</label>
                     <input type="text" id="name" name="name" class="form-control" required>
+                    @error('name')
+                        <span class="text text-danger">{{$messgae}}</span>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="description">Description:</label>

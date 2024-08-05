@@ -6,6 +6,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\AdminProductController;
 use App\Http\Controllers\AdminCategoryController;
 use App\Http\Controllers\ClientProductController;
+use App\Http\Controllers\SendMailController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -50,4 +51,4 @@ Route::middleware(['auth'])->group(function () {
         ->name('client.products.filterByCategory');
     Route::get('/client/products/{product}', [ClientProductController::class, 'show'])->name('client.products.show');
 });
-
+Route::get('sendmail',[SendMailController::class, 'sendMail']);
