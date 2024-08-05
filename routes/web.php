@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\AdminProductController;
 use App\Http\Controllers\AdminCategoryController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ClientProductController;
 use App\Http\Controllers\SendMailController;
 use App\Http\Controllers\UserController;
@@ -50,5 +51,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/client/products/category/{category}', [ClientProductController::class, 'filterByCategory'])
         ->name('client.products.filterByCategory');
     Route::get('/client/products/{product}', [ClientProductController::class, 'show'])->name('client.products.show');
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::post('/cart/store', [CartController::class, 'store'])->name('cart.store');
+    Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
+    Route::delete('/cart/destroy/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
+    Route::get('/cart/quantity', [CartController::class, 'getCartQuantity'])->name('cart.quantity');
+    Route::post('/cart/checkout', [CartController::class, 'processCheckout'])->name('cart.checkout');
 });
-Route::get('sendmail',[SendMailController::class, 'sendMail']);
+
