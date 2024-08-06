@@ -8,10 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     use HasFactory;
+
     protected $fillable = [
-        'user_id',        // Thêm dòng này
+        'user_id',
         'total_amount',
         'status',
         'address'
     ];
+
+    public function items()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
 }

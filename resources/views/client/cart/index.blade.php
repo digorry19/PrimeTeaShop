@@ -45,9 +45,9 @@
                 </tbody>
 
             </table>
-            <<form action="{{ route('cart.checkout') }}" method="POST">
+            <form action="{{ route('cart.checkout') }}" method="POST">
                 @csrf
-                <input type="hidden" name="address" value="Địa chỉ giao hàng">
+                <input type="text" name="address" placeholder="Address..">
                 <!-- Thêm các trường dữ liệu khác nếu cần -->
                 <button type="submit" class="btn btn-primary">Thanh toán</button>
                 </form>
